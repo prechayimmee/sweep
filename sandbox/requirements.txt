@@ -122,7 +122,7 @@ jupyterlab-widgets==3.0.9
 jupyterlab_server==2.25.0
 kiwisolver==1.4.5
 kombu==5.3.2
-langchain==0.0.300
+langchain==0.0.329
 langsmith==0.0.40
 lazy-object-proxy==1.9.0
 Levenshtein==0.21.1
