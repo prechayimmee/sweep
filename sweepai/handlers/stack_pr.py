@@ -152,7 +152,7 @@ def stack_pr(
             commit,
             file_change_requests,
         ) = item
-        logger.info("Status", file_change_request.succeeded)
+        # logger.info("Status", file_change_request.succeeded)
 
     ticket_progress.status = TicketProgressStatus.COMPLETE
     ticket_progress.save()
