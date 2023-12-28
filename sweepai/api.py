@@ -121,9 +121,8 @@ def run_on_check_suite(*args, **kwargs):
     pr_change_request = on_check_suite(request)
     if pr_change_request:
         call_on_comment(**pr_change_request.params, comment_type="github_action")
-        logger.info("Done with on_check_suite")
     else:
-        logger.info("Skipping on_check_suite as no pr_change_request was returned")
+        pass
 
 
 def terminate_thread(thread):
@@ -145,8 +144,7 @@ def terminate_thread(thread):
     except SystemExit:
         raise SystemExit
     except Exception as e:
-        logger.exception(f"Failed to terminate thread: {e}")
-
+        pass
 
 def delayed_kill(thread: threading.Thread, delay: int = 60 * 60):
     time.sleep(delay)

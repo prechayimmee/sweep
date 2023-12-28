@@ -13,4 +13,4 @@ def test_create_index(mock_mongo_client):
 
     create_index()
 
-    mock_collection.create_index.assert_called_once_with('tracking_id', unique=True)
+    mock_collection.create_index.assert_called_once_with('tracking_id', unique=True)  # no print or logger statements here

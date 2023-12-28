@@ -178,7 +178,7 @@ def on_merge_conflict(
             commit,
             file_change_requests,
         ) = item
-        logger.info("Status", file_change_request.status == "succeeded")
+        # logger.info("Status", file_change_request.status == "succeeded")
 
     ticket_progress.status = TicketProgressStatus.COMPLETE
     ticket_progress.save()

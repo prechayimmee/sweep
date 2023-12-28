@@ -126,9 +126,9 @@ class ClonedRepo:
 
     @cached_property
     def zip_path(self):
-        logger.info("Zipping repository...")
+        # logger.info("Zipping repository...")
         shutil.make_archive(self.repo_dir, "zip", self.repo_dir)
-        logger.info("Done zipping")
+        # logger.info("Done zipping")
         return f"{self.repo_dir}.zip"
 
     @cached_property
@@ -160,28 +160,28 @@ class ClonedRepo:
 
     def clone(self):
         if not os.path.exists(self.cached_dir):
-            logger.info("Cloning repo...")
+            # logger.info("Cloning repo...")
             if self.branch:
                 repo = git.Repo.clone_from(
                     self.clone_url, self.cached_dir, branch=self.branch
                 )
             else:
                 repo = git.Repo.clone_from(self.clone_url, self.cached_dir)
-            logger.info("Done cloning")
+            # logger.info("Done cloning")
         else:
             try:
                 repo = git.Repo(self.cached_dir)
                 repo.remotes.origin.pull()
             except Exception:
-                logger.error("Could not pull repo")
+                # logger.error("Could not pull repo")
                 shutil.rmtree(self.cached_dir, ignore_errors=True)
                 repo = git.Repo.clone_from(self.clone_url, self.cached_dir)
-            logger.info("Repo already cached, copying")
-        logger.info("Copying repo...")
+            # logger.info("Repo already cached, copying")
+        # logger.info("Copying repo...")
         shutil.copytree(
             self.cached_dir, self.repo_dir, symlinks=True, copy_function=shutil.copy
         )
-        logger.info("Done copying")
+        # logger.info("Done copying")
         repo = git.Repo(self.repo_dir)
         return repo
 
@@ -365,7 +365,7 @@ class ClonedRepo:
                 if time_limited and commit.authored_datetime.replace(
                     tzinfo=None
                 ) <= cut_off_date.replace(tzinfo=None):
-                    logger.info(f"Exceeded cut off date, stopping...")
+                    # logger.info(f"Exceeded cut off date, stopping...")
                     break
                 repo = get_github_client(self.installation_id)[1].get_repo(
                     self.repo_full_name
@@ -377,14 +377,15 @@ class ClonedRepo:
                 lines = diff.count("\n")
                 # total diff lines must not exceed 200
                 if lines + line_count > limit:
-                    logger.info(f"Exceeded {limit} lines of diff, stopping...")
+                    # logger.info(f"Exceeded {limit} lines of diff, stopping...")
                     break
                 commit_history.append(
                     f"<commit>\nAuthor: {commit.author.name}\nMessage: {commit.message}\n{diff}\n</commit>"
                 )
                 line_count += lines
         except:
-            logger.error(f"An error occurred: {traceback.print_exc()}")
+            pass
+            # logger.error(f"An error occurred: {traceback.print_exc()}")
         return commit_history
 
     def get_similar_file_paths(self, file_path: str, limit: int = 10):

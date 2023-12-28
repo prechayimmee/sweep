@@ -1164,7 +1164,7 @@ class SweepBot(CodeGenBot, GithubBot):
 
         while i < min(len(file_change_requests), 20):
             file_change_request = file_change_requests[i]
-            logger.print(file_change_request.change_type, file_change_request.filename)
+            # logger.print(file_change_request.change_type, file_change_request.filename)
             changed_file = False
 
             if self.ticket_progress:
@@ -1184,10 +1184,10 @@ class SweepBot(CodeGenBot, GithubBot):
                     i += 1
                     continue
 
-                logger.print(
-                    f"Processing {file_change_request.filename} for change type"
-                    f" {file_change_request.change_type}..."
-                )
+                # logger.print(
+                #     f"Processing {file_change_request.filename} for change type"
+                #     f" {file_change_request.change_type}..."
+                # )
 
                 first_chars_in_instructions = file_change_request.instructions.lower()
                 first_chars_in_instructions = first_chars_in_instructions[
@@ -1284,12 +1284,12 @@ class SweepBot(CodeGenBot, GithubBot):
                                 regex = (
                                     rf'<snippet source="{file}:\d*-?\d*.*?<\/snippet>'
                                 )
-                                snippet_msg.content = re.sub(
-                                    regex,
-                                    "",
-                                    snippet_msg.content,
-                                    flags=re.DOTALL,
-                                )
+                                # snippet_msg.content = re.sub(
+                                #     regex,
+                                #     "",
+                                #     snippet_msg.content,
+                                #     flags=re.DOTALL,
+                                # )
                             if self.ticket_progress is not None:
                                 for _ in range(
                                     len(
@@ -1516,9 +1516,9 @@ class SweepBot(CodeGenBot, GithubBot):
                                         if not waiting or failed or succeeded:
                                             break
                                     time.sleep(sleep_time)
-                                    logger.info("Waiting for check runs to complete")
+                                    # logger.info("Waiting for check runs to complete")
                                 else:
-                                    logger.error("Check runs did not complete in time")
+                                    # logger.error("Check runs did not complete in time")
                                     completed = False
 
                                 if not completed:
@@ -1574,7 +1574,7 @@ class SweepBot(CodeGenBot, GithubBot):
                             raise Exception(
                                 f"Unknown change type {file_change_request.change_type}"
                             )
-                    logger.print(f"Done processing {file_change_request.filename}.")
+                    # logger.print(f"Done processing {file_change_request.filename}.")
             except AssistantRaisedException as e:
                 raise e
             except Exception as e:
@@ -1853,5 +1853,5 @@ class SweepBot(CodeGenBot, GithubBot):
             raise e
         except Exception as e:
             tb = traceback.format_exc()
-            logger.info(f"Error in handle_modify_file: {tb}")
+            # logger.info(f"Error in handle_modify_file: {tb}")
             return False, sandbox_execution, None, changed_files
