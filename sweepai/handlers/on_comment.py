@@ -182,7 +182,7 @@ def on_comment(
     posthog.capture(
         username, "started", properties={**metadata, "duration": elapsed_time}
     )
-    logger.info(f"Getting repo {repo_full_name}")
+    # logger.info(f"Getting repo {repo_full_name}")
     file_comment = bool(pr_path) and bool(pr_line_position)
 
     item_to_react_to = None
@@ -326,7 +326,7 @@ def on_comment(
             cloned_repo=cloned_repo,
         )
     except Exception as e:
-        logger.error(traceback.format_exc())
+        # logger.error(traceback.format_exc())
         elapsed_time = time.time() - start_time
         posthog.capture(
             username,
@@ -429,7 +429,7 @@ def on_comment(
         edit_comment(ERROR_FORMAT.format(title="Could not find files to change"))
         return {"success": True, "message": "No files to change."}
     except Exception as e:
-        logger.error(traceback.format_exc())
+        # logger.error(traceback.format_exc())
         elapsed_time = time.time() - start_time
         posthog.capture(
             username,
