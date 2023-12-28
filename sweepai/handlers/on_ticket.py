@@ -135,7 +135,7 @@ def on_ticket(
     tracking_id: str | None = None,
 ):
     on_ticket_start_time = time()
-    logger.info(f"Starting on_ticket with title {title} and summary {summary}")
+    # logger.info(f"Starting on_ticket with title {title} and summary {summary}")
     (
         title,
         slow_mode,
@@ -272,9 +272,9 @@ def on_ticket(
 
     try:
         if current_issue.state == "closed":
-            logger.warning(
-                f"Issue {issue_number} is closed (tracking ID: `{tracking_id}`). Please join our Discord server for support (tracking_id={tracking_id})"
-            )
+            # logger.warning(
+            #     f"Issue {issue_number} is closed (tracking ID: `{tracking_id}`). Please join our Discord server for support (tracking_id={tracking_id})"
+            # )
             posthog.capture(
                 username,
                 "issue_closed",
@@ -314,7 +314,7 @@ def on_ticket(
         summary = summary if summary else ""
 
         def delete_old_prs():
-            logger.info("Deleting old PRs...")
+            # logger.info("Deleting old PRs...")
             prs = repo.get_pulls(
                 state="open",
                 sort="created",
@@ -570,7 +570,7 @@ def on_ticket(
             return {"success": True}
 
         if len(title + summary) < 20:
-            logger.info("Issue too short")
+            # logger.info("Issue too short")
             edit_sweep_comment(
                 (
                     f"Please add more details to your issue. I need at least 20 characters"
@@ -594,7 +594,7 @@ def on_ticket(
             and not is_consumer_tier
         ):
             if ("sweep" in repo_name.lower()) or ("test" in repo_name.lower()):
-                logger.info("Test repository detected")
+                # logger.info("Test repository detected")
                 edit_sweep_comment(
                     (
                         f"Sweep does not work on test repositories. Please create an issue"
@@ -704,7 +704,7 @@ def on_ticket(
                     error_message = "\n".join(errors)
                     markdown_error_message = f"**There is something wrong with your [sweep.yaml](https://github.com/{repo_full_name}/blob/main/sweep.yaml):**\n```\n{error_message}\n```"
                     sweep_yml_failed = True
-                    logger.error(markdown_error_message)
+                    # logger.error(markdown_error_message)
                     edit_sweep_comment(markdown_error_message, -1)
                 else:
                     logger.info("The YAML file is valid. No errors found.")
